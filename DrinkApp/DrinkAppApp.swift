@@ -15,7 +15,7 @@ struct DrinkAppApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             AppSettings.self,
-            DrinkEntry.self,
+            DrinkProgress.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
