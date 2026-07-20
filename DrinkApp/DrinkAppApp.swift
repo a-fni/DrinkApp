@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct DrinkAppApp: App {
+    
+    // SwiftData setup - data model we will be using
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            AppSettings.self,
+            DrinkEntry.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +28,7 @@ struct DrinkAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
         .modelContainer(sharedModelContainer)
     }
