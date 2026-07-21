@@ -13,13 +13,13 @@ import SwiftData
 final class AppSettings {
 
     // Fields
-    var targetAmount: Float     // Target amount of water
+    var targetAmount: Int       // Target amount of water in ml
     var waterGlassAmount: Int   // Amount of water of a glass in ml (usually 150)
     
     
-    init(targetAmount: Float, waterGlassAmount: Int) {
+    init() {
         // Main class constructor simply initializes variables
-        self.targetAmount = targetAmount
-        self.waterGlassAmount = waterGlassAmount
+        self.targetAmount     = 2000
+        self.waterGlassAmount = 150
     }
 }

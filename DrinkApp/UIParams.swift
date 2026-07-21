@@ -15,10 +15,9 @@ let TICK_HEIGHT: CGFloat = 10
 
 // MARK: Screen padding to use
 let PAD_TOP:    CGFloat = 25
-let PAD_RIGHT:  CGFloat = 0
+let PAD_RIGHT:  CGFloat = 25
 let PAD_BOTTOM: CGFloat = 25
-let PAD_LEFT:   CGFloat = 0
-
+let PAD_LEFT:   CGFloat = 25
 
 
 // MARK: Functions
