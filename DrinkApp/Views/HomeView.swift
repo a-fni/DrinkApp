@@ -38,18 +38,17 @@ struct HomeView: View {
             )
             
             // Measuring tick marks second layer
-            TickMarkers(
+            TickMarks(
                 mlMin: mlMin,
                 mlMax: mlMax,
                 step:  mlStep
             )
             
             // Then we have the target tick mark layer
-            TickMark(
+            TargetMark(
                 ml: appSettings.first?.targetAmount ?? 0,
                 mlMin: mlMin,
                 mlMax: mlMax,
-                colour: .yellow
             )
             
             // Next, the current level tick mark
@@ -99,6 +98,11 @@ struct HomeView: View {
         if appSettings.count == 0 {
             modelContext.insert(AppSettings())
         }
+        let appSettingsEntry: AppSettings = appSettings.first!
+        
+        // Clipping values to ensure values are legal
+        drinkProgressEntry.progress = min(max(drinkProgressEntry.progress, 0), 10_000)
+        appSettingsEntry.targetAmount = min(max(appSettingsEntry.targetAmount, 0), 10_000)
         
         // Saving updates
         do {

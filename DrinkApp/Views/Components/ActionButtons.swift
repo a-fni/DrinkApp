@@ -23,14 +23,34 @@ struct ActionButtons: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Button("Drink+", action: drink)
-                Button("Drink0", action: resetDrink)
-                Button("Target+", action: increaseTarget)
-                Button("Target0", action: resetTarget)
+                // Increase button
+                Button {
+                    increaseLevel()
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                
+                Spacer(minLength: 50)
+                
+                // Decrease button
+                Button {
+                    decreaseLevel()
+                } label: {
+                    Image(systemName: "minus.circle")
+                }
+                
+                Spacer(minLength: 50)
+                
+                // Configuration buttons
+                Button {
+                    configure()
+                } label: {
+                    Image(systemName: "gear")
+                }
             }
             .frame(
                 width: geometry.size.width - PAD_RIGHT,
-                height: geometry.size.height,
+                height: 0,
                 alignment: .trailing
             )
             .position(
@@ -42,72 +62,42 @@ struct ActionButtons: View {
     
     
     // MARK: Stub functions (for testing only)
-    private func drink() {
+    private func increaseLevel() {
         // Safely extract current progress
         guard let drinkProgressEntry = drinkProgress.first else { return }
         
         // Update progress
         drinkProgressEntry.progress += 100
+        if drinkProgressEntry.progress > 10_000 {
+            drinkProgressEntry.progress = 10_000
+        }
+        
         do {
             try modelContext.save()
         } catch {
             print("Could not update current progress: \(error)")
         }
-        
-        // Updating state values
-        self.updateEnvironment()
     }
     
-    private func resetDrink() {
+    private func decreaseLevel() {
         // Safely extract current progress
         guard let drinkProgressEntry = drinkProgress.first else { return }
         
         // Update progress
-        drinkProgressEntry.progress = 0
+        drinkProgressEntry.progress -= 100
+        if drinkProgressEntry.progress < 0 {
+            drinkProgressEntry.progress = 0
+        }
+        
         do {
             try modelContext.save()
         } catch {
             print("Could not reset current progress: \(error)")
         }
-        
-        // Updating state values
-        self.updateEnvironment()
     }
     
-    private func increaseTarget() {
-        // Safely extract current progress
-        guard let appSettingsEntry = appSettings.first else { return }
-        
-        // Update progress
-        appSettingsEntry.targetAmount += 100
-        do {
-            try modelContext.save()
-        } catch {
-            print("Could not update target amount: \(error)")
-        }
-        
-        // Updating state values
-        self.updateEnvironment()
-    }
-    
-    private func resetTarget() {
-        // Safely extract current progress
-        guard let appSettingsEntry = appSettings.first else { return }
-        
-        // Update progress
-        appSettingsEntry.targetAmount = 0
-        do {
-            try modelContext.save()
-        } catch {
-            print("Could not reset target amount: \(error)")
-        }
-        
-        // Updating state values
-        self.updateEnvironment()
-    }
-    
-    
-    private func updateEnvironment() {}
+    private func configure() {}
+
 }
 
 #Preview {

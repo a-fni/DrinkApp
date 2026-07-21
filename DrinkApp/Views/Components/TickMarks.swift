@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TickMarkers: View {
+struct TickMarks: View {
     
     // MARK: Fields
     let mlMin: Int      // Minimum value to display in ml
@@ -34,5 +34,5 @@ struct TickMarkers: View {
 }
 
 #Preview {
-    TickMarkers(mlMin: 0, mlMax: 1500, step: 250)
+    TickMarks(mlMin: 0, mlMax: 1500, step: 250)
 }

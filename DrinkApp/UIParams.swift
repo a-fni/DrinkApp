@@ -13,6 +13,10 @@ let TICK_WIDTH:  CGFloat = 30
 let TICK_HEIGHT: CGFloat = 10
 
 
+// MARK: Sizes for the target line
+let TARGET_HEIGHT: CGFloat = 5
+
+
 // MARK: Screen padding to use
 let PAD_TOP:    CGFloat = 25
 let PAD_RIGHT:  CGFloat = 25
@@ -32,4 +36,20 @@ func mapFrom(
     let yCoord: CGFloat = unitPixels * CGFloat(ml - mlMin)
     let yCoordAdjusted: CGFloat = yCoord + PAD_TOP
     return screenHeight - yCoordAdjusted
+}
+
+func mapFrom(
+    pixels: CGFloat,
+    givenMin mlMin: Int,
+    givenMax mlMax: Int,
+    screenHeight: CGFloat
+) -> Int {
+    let effectiveScreenHeight: CGFloat = screenHeight - PAD_TOP - PAD_BOTTOM
+    let unitPixels: CGFloat = effectiveScreenHeight / CGFloat(mlMax - mlMin)  // px/ml
+    
+    let yCoordAdjusted = screenHeight - pixels
+    let yCoord = yCoordAdjusted - PAD_TOP
+    let ml: Int = Int(yCoord / unitPixels + CGFloat(mlMin))
+
+    return ml
 }
